@@ -27,14 +27,14 @@ void setup(){
 
 void loop(){
   move(1, 255, 1); //motor 1, full speed, left
-  move(2, 255, 0); //motor 2, full speed, left
+  move(2, 255, 1); //motor 2, full speed, left
   
   delay(1000); //go for 1 second
   stop(); //stop
   delay(250); //hold for 250ms until move again
   
   move(1, 128, 0); //motor 1, half speed, right
-  move(2, 128, 1); //motor 2, half speed, right
+  move(2, 128, 0); //motor 2, half speed, right
   
   delay(1000);
   stop();
