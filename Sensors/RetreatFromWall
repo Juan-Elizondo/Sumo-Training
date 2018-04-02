@@ -1,0 +1,144 @@
+#include <MedianFilter.h>
+#include <SharpDistSensor.h>
+
+// Analog pin to which the sensor is connected
+const byte left_sensorPin = A2;
+const byte right_sensorPin = A1;
+
+// Window size of the median filter (odd number, 1 = no filtering)
+const byte mediumFilterWindowSize = 5;
+
+// Create an object instance of the SharpDistSensor class
+SharpDistSensor sensor(left_sensorPin, mediumFilterWindowSize);
+SharpDistSensor sensor2(right_sensorPin, mediumFilterWindowSize);
+
+/*
+ * Polynomial fit curve coefficients C0 to C5 in relation:
+ * Distance = C0 + C1*A + C2*A^2 + ... + C5*A^5
+ * where A is the analog value read from the sensor
+ * One coefficient minimum, six maximum (5th order polynomial)
+ */
+const float polyCoefficients[] = {1734, -9.005, 2.023E-2, -2.251E-5, 1.167E-8, -2.037E-12};
+const byte nbCoefficients = 6;  // Number of coefficients
+
+/*
+ * Minimum and maximum analog values for which to return a distance
+ * These should represent a range of analog values within which the
+ * polynomial fit curve is valid.
+ */
+const unsigned int minVal = 30; // ~800 mm
+const unsigned int maxVal = 875; // ~50mm
+
+//Motor Stuff
+//motor A connected between A01 and A02
+//motor B connected between B01 and B02
+
+int STBY = 10; //standby
+
+//Motor A
+int PWMA = 3; //Speed control
+int AIN1 = 9; //Direction
+int AIN2 = 8; //Direction
+
+//Motor B
+int PWMB = 5; //Speed control
+int BIN1 = 11; //Direction
+int BIN2 = 12; //Direction
+
+  unsigned int left_distance = sensor.getDist();
+  unsigned int right_distance = sensor2.getDist();
+void setup() {
+  Serial.begin(9600);
+
+  // Set custom polynomial fit curve coefficients and range
+  sensor.setPolyFitCoeffs(nbCoefficients, polyCoefficients, minVal, maxVal);
+
+  //Setup motors and Switch
+  pinMode(STBY, OUTPUT);
+  
+  pinMode(PWMA, OUTPUT);
+  pinMode(AIN1, OUTPUT);
+  pinMode(AIN2, OUTPUT);
+  
+  pinMode(PWMB, OUTPUT);
+  pinMode(BIN1, OUTPUT);
+  pinMode(BIN2, OUTPUT);
+
+  //Start by moving forward
+  move(1, 255, 0); //motor 1, full speed
+  move(2, 255, 1); //motor 2, full speed
+
+
+}
+
+void loop() {
+
+  left_distance = sensor.getDist();
+  right_distance = sensor2.getDist();
+  // Print distance to Serial
+   //Serial.print(left_distance);
+   //Serial.print(", ");
+   //Serial.println(right_distance);
+
+  // Wait some time
+  delay(50);
+
+  //Commands to stop and then move back
+Serial.println("running");
+  if (left_distance <= 300 || right_distance <= 300){
+    stop();
+    move(1, 128, 1); //motor 1, half speed,back
+    move(2, 128, 0); //motor 2, half speed,back
+    delay(1000);
+    stop();
+    delay(500);
+    move(1, 128, 1); //motor 1, half speed,turn
+    move(2, 128, 1); //motor 2, half speed,turn
+    delay(700);
+    stop();
+    delay(500);
+    move(1, 255, 0); //motor 1, full speed,forward
+    move(2, 255, 1); //motor 2, full speed,forward
+    delay(500);
+
+    //Prevents echoes from sensors from being processed by the arduino
+    //left_distance = sensor.getDist();
+    //right_distance = sensor2.getDist();
+    //left_distance = sensor.getDist();
+    //right_distance = sensor2.getDist();
+
+    Serial.println("done");
+  }
+}
+
+void move(int motor, int speed, int direction){
+  //Move specific motor at speed and direction
+  //motor: 0 for B 1 for A
+  //speed: 0 is off, and 255 is full speed
+  //direction: 0 clockwise, 1 counter-clockwise
+  
+  digitalWrite(STBY, HIGH); //disable standby
+  
+  boolean inPin1 = LOW;
+  boolean inPin2 = HIGH;
+  
+  if(direction == 1){
+  inPin1 = HIGH;
+  inPin2 = LOW;
+  }
+  
+  if(motor == 1){
+  digitalWrite(AIN1, inPin1);
+  digitalWrite(AIN2, inPin2);
+  analogWrite(PWMA, speed);
+  }else{
+  digitalWrite(BIN1, inPin1);
+  digitalWrite(BIN2, inPin2);
+  analogWrite(PWMB, speed);
+  }
+}
+
+void stop(){
+  //enable standby
+  digitalWrite(STBY, LOW);
+}
