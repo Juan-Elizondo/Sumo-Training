@@ -32023,6 +32023,7 @@ In this library you will find frames that can be used to help organize a schemat
 <attribute name="SCH_DESC" value="Sensors and Breakouts"/>
 <attribute name="TEAM" value="Battlebots Sumo"/>
 </part>
+<part name="R5" library="SparkFun-Resistors" library_urn="urn:adsk.eagle:library:532" deviceset="10KOHM" device="-0603-1/10W-1%" package3d_urn="urn:adsk.eagle:package:39650/1" value="10k"/>
 </parts>
 <sheets>
 <sheet>
@@ -32061,12 +32062,12 @@ In this library you will find frames that can be used to help organize a schemat
 <instance part="P+2" gate="1" x="195.58" y="177.8" smashed="yes">
 <attribute name="VALUE" x="193.04" y="172.72" size="1.778" layer="96" rot="R90"/>
 </instance>
-<instance part="D1" gate="G$1" x="88.9" y="109.22" smashed="yes" rot="R270">
-<attribute name="NAME" x="84.328" y="112.649" size="1.778" layer="95" font="vector"/>
-<attribute name="VALUE" x="84.328" y="107.315" size="1.778" layer="96" font="vector" align="top-left"/>
+<instance part="D1" gate="G$1" x="76.2" y="109.22" smashed="yes" rot="R270">
+<attribute name="NAME" x="71.628" y="112.649" size="1.778" layer="95" font="vector"/>
+<attribute name="VALUE" x="71.628" y="107.315" size="1.778" layer="96" font="vector" align="top-left"/>
 </instance>
-<instance part="GND8" gate="1" x="81.28" y="104.14" smashed="yes">
-<attribute name="VALUE" x="78.74" y="101.6" size="1.778" layer="96"/>
+<instance part="GND8" gate="1" x="68.58" y="104.14" smashed="yes">
+<attribute name="VALUE" x="66.04" y="101.6" size="1.778" layer="96"/>
 </instance>
 <instance part="FRAME4" gate="G$1" x="0" y="0" smashed="yes"/>
 <instance part="FRAME4" gate="G$2" x="172.72" y="0" smashed="yes">
@@ -32076,6 +32077,10 @@ In this library you will find frames that can be used to help organize a schemat
 <attribute name="SCH_DESC" x="173.99" y="6.35" size="2.54" layer="94"/>
 <attribute name="TEAM" x="173.99" y="34.29" size="3.048" layer="94" ratio="10" align="top-left"/>
 <attribute name="REVISION" x="245.11" y="6.35" size="2.54" layer="94"/>
+</instance>
+<instance part="R5" gate="G$1" x="86.36" y="109.22" smashed="yes">
+<attribute name="NAME" x="86.36" y="110.744" size="1.778" layer="95" font="vector" align="bottom-center"/>
+<attribute name="VALUE" x="86.36" y="107.696" size="1.778" layer="96" font="vector" align="top-center"/>
 </instance>
 </instances>
 <busses>
@@ -32169,9 +32174,9 @@ In this library you will find frames that can be used to help organize a schemat
 </segment>
 <segment>
 <pinref part="D1" gate="G$1" pin="C"/>
-<wire x1="83.82" y1="109.22" x2="81.28" y2="109.22" width="0.1524" layer="91"/>
+<wire x1="71.12" y1="109.22" x2="68.58" y2="109.22" width="0.1524" layer="91"/>
 <pinref part="GND8" gate="1" pin="GND"/>
-<wire x1="81.28" y1="109.22" x2="81.28" y2="106.68" width="0.1524" layer="91"/>
+<wire x1="68.58" y1="109.22" x2="68.58" y2="106.68" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="+3V3" class="0">
@@ -32313,10 +32318,17 @@ In this library you will find frames that can be used to help organize a schemat
 <label x="99.06" y="127" size="1.778" layer="95"/>
 </segment>
 </net>
+<net name="N$5" class="0">
+<segment>
+<pinref part="R5" gate="G$1" pin="1"/>
+<pinref part="D1" gate="G$1" pin="A"/>
+<wire x1="81.28" y1="109.22" x2="78.74" y2="109.22" width="0.1524" layer="91"/>
+</segment>
+</net>
 <net name="INDICATOR" class="0">
 <segment>
 <pinref part="U$1" gate="G$1" pin="23/A9/T/PWM"/>
-<pinref part="D1" gate="G$1" pin="A"/>
+<pinref part="R5" gate="G$1" pin="2"/>
 <wire x1="114.3" y1="109.22" x2="91.44" y2="109.22" width="0.1524" layer="91"/>
 <label x="99.06" y="109.22" size="1.778" layer="95"/>
 </segment>
@@ -32567,10 +32579,10 @@ In this library you will find frames that can be used to help organize a schemat
 </sheet>
 <sheet>
 <plain>
-<text x="43.18" y="177.8" size="5.334" layer="91">IMU</text>
-<text x="144.78" y="177.8" size="5.334" layer="91">Distance Sensors</text>
-<text x="154.94" y="99.06" size="5.334" layer="91">Line Sensors</text>
-<text x="48.26" y="99.06" size="5.334" layer="91">Contact Switches</text>
+<text x="44.958" y="172.212" size="3.81" layer="91">IMU</text>
+<text x="146.558" y="172.212" size="3.81" layer="91">Distance Sensors</text>
+<text x="156.464" y="93.472" size="3.81" layer="91">Line Sensors</text>
+<text x="49.784" y="93.726" size="3.81" layer="91">Contact Switches</text>
 </plain>
 <instances>
 <instance part="IMU" gate="G$1" x="81.28" y="144.78" smashed="yes">
@@ -32641,30 +32653,30 @@ In this library you will find frames that can be used to help organize a schemat
 <instance part="GND11" gate="1" x="210.82" y="73.66" smashed="yes">
 <attribute name="VALUE" x="208.28" y="71.12" size="1.778" layer="96"/>
 </instance>
-<instance part="GND12" gate="1" x="66.04" y="71.12" smashed="yes">
-<attribute name="VALUE" x="63.5" y="68.58" size="1.778" layer="96"/>
+<instance part="GND12" gate="1" x="71.12" y="71.12" smashed="yes">
+<attribute name="VALUE" x="68.58" y="68.58" size="1.778" layer="96"/>
 </instance>
-<instance part="R3" gate="G$1" x="66.04" y="81.28" smashed="yes" rot="R90">
-<attribute name="NAME" x="64.516" y="81.28" size="1.778" layer="95" font="vector" rot="R90" align="bottom-center"/>
-<attribute name="VALUE" x="67.564" y="81.28" size="1.778" layer="96" font="vector" rot="R90" align="top-center"/>
+<instance part="R3" gate="G$1" x="71.12" y="81.28" smashed="yes" rot="R90">
+<attribute name="NAME" x="69.596" y="81.28" size="1.778" layer="95" font="vector" rot="R90" align="bottom-center"/>
+<attribute name="VALUE" x="72.644" y="81.28" size="1.778" layer="96" font="vector" rot="R90" align="top-center"/>
 </instance>
-<instance part="R4" gate="G$1" x="106.68" y="81.28" smashed="yes" rot="R90">
-<attribute name="NAME" x="105.156" y="81.28" size="1.778" layer="95" font="vector" rot="R90" align="bottom-center"/>
-<attribute name="VALUE" x="108.204" y="81.28" size="1.778" layer="96" font="vector" rot="R90" align="top-center"/>
+<instance part="R4" gate="G$1" x="111.76" y="81.28" smashed="yes" rot="R90">
+<attribute name="NAME" x="110.236" y="81.28" size="1.778" layer="95" font="vector" rot="R90" align="bottom-center"/>
+<attribute name="VALUE" x="113.284" y="81.28" size="1.778" layer="96" font="vector" rot="R90" align="top-center"/>
 </instance>
-<instance part="GND14" gate="1" x="106.68" y="71.12" smashed="yes">
-<attribute name="VALUE" x="104.14" y="68.58" size="1.778" layer="96"/>
+<instance part="GND14" gate="1" x="111.76" y="71.12" smashed="yes">
+<attribute name="VALUE" x="109.22" y="68.58" size="1.778" layer="96"/>
 </instance>
-<instance part="+3V9" gate="G$1" x="86.36" y="96.52" smashed="yes">
-<attribute name="VALUE" x="83.82" y="91.44" size="1.778" layer="96" rot="R90"/>
+<instance part="+3V9" gate="G$1" x="96.52" y="96.52" smashed="yes">
+<attribute name="VALUE" x="93.98" y="91.44" size="1.778" layer="96" rot="R90"/>
 </instance>
-<instance part="S1" gate="G$1" x="78.74" y="81.28" smashed="yes" rot="R90">
-<attribute name="VALUE" x="83.566" y="78.74" size="1.778" layer="96" font="vector" rot="R90"/>
-<attribute name="NAME" x="73.152" y="78.74" size="1.778" layer="95" font="vector" rot="R90"/>
+<instance part="S1" gate="G$1" x="83.82" y="81.28" smashed="yes" rot="R90">
+<attribute name="VALUE" x="88.646" y="78.74" size="1.778" layer="96" font="vector" rot="R90"/>
+<attribute name="NAME" x="78.232" y="78.74" size="1.778" layer="95" font="vector" rot="R90"/>
 </instance>
-<instance part="S2" gate="G$1" x="93.98" y="81.28" smashed="yes" rot="MR90">
-<attribute name="VALUE" x="89.154" y="78.74" size="1.778" layer="96" font="vector" rot="MR90"/>
-<attribute name="NAME" x="99.568" y="78.74" size="1.778" layer="95" font="vector" rot="MR90"/>
+<instance part="S2" gate="G$1" x="99.06" y="81.28" smashed="yes" rot="MR90">
+<attribute name="VALUE" x="94.234" y="78.74" size="1.778" layer="96" font="vector" rot="MR90"/>
+<attribute name="NAME" x="104.648" y="78.74" size="1.778" layer="95" font="vector" rot="MR90"/>
 </instance>
 <instance part="FRAME2" gate="G$1" x="0" y="0" smashed="yes"/>
 <instance part="FRAME2" gate="G$2" x="172.72" y="0" smashed="yes">
@@ -32716,12 +32728,12 @@ In this library you will find frames that can be used to help organize a schemat
 <segment>
 <pinref part="GND12" gate="1" pin="GND"/>
 <pinref part="R3" gate="G$1" pin="1"/>
-<wire x1="66.04" y1="73.66" x2="66.04" y2="76.2" width="0.1524" layer="91"/>
+<wire x1="71.12" y1="73.66" x2="71.12" y2="76.2" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="GND14" gate="1" pin="GND"/>
 <pinref part="R4" gate="G$1" pin="1"/>
-<wire x1="106.68" y1="73.66" x2="106.68" y2="76.2" width="0.1524" layer="91"/>
+<wire x1="111.76" y1="73.66" x2="111.76" y2="76.2" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="LINE1" gate="G$1" pin="4"/>
@@ -32866,19 +32878,19 @@ In this library you will find frames that can be used to help organize a schemat
 <wire x1="210.82" y1="81.28" x2="210.82" y2="88.9" width="0.1524" layer="91"/>
 </segment>
 <segment>
-<pinref part="+3V9" gate="G$1" pin="+3V3"/>
-<wire x1="86.36" y1="88.9" x2="86.36" y2="93.98" width="0.1524" layer="91"/>
-<pinref part="S1" gate="G$1" pin="1"/>
-<wire x1="78.74" y1="88.9" x2="86.36" y2="88.9" width="0.1524" layer="91"/>
-<pinref part="S2" gate="G$1" pin="1"/>
-<wire x1="86.36" y1="88.9" x2="93.98" y2="88.9" width="0.1524" layer="91"/>
-<junction x="86.36" y="88.9"/>
-</segment>
-<segment>
 <pinref part="LINE1" gate="G$1" pin="3"/>
 <wire x1="172.72" y1="83.82" x2="177.8" y2="83.82" width="0.1524" layer="91"/>
 <pinref part="+3V7" gate="G$1" pin="+3V3"/>
 <wire x1="177.8" y1="83.82" x2="177.8" y2="88.9" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<pinref part="S1" gate="G$1" pin="1"/>
+<pinref part="S2" gate="G$1" pin="1"/>
+<wire x1="83.82" y1="88.9" x2="96.52" y2="88.9" width="0.1524" layer="91"/>
+<pinref part="+3V9" gate="G$1" pin="+3V3"/>
+<wire x1="96.52" y1="88.9" x2="99.06" y2="88.9" width="0.1524" layer="91"/>
+<wire x1="96.52" y1="93.98" x2="96.52" y2="88.9" width="0.1524" layer="91"/>
+<junction x="96.52" y="88.9"/>
 </segment>
 </net>
 <net name="N$1" class="0">
@@ -32921,24 +32933,24 @@ In this library you will find frames that can be used to help organize a schemat
 </net>
 <net name="BTN1" class="0">
 <segment>
-<label x="55.88" y="88.9" size="1.778" layer="95"/>
+<label x="60.96" y="88.9" size="1.778" layer="95"/>
 <pinref part="R3" gate="G$1" pin="2"/>
-<wire x1="66.04" y1="88.9" x2="55.88" y2="88.9" width="0.1524" layer="91"/>
-<wire x1="66.04" y1="86.36" x2="66.04" y2="88.9" width="0.1524" layer="91"/>
+<wire x1="71.12" y1="88.9" x2="60.96" y2="88.9" width="0.1524" layer="91"/>
+<wire x1="71.12" y1="86.36" x2="71.12" y2="88.9" width="0.1524" layer="91"/>
 <pinref part="S1" gate="G$1" pin="2"/>
-<wire x1="76.2" y1="88.9" x2="66.04" y2="88.9" width="0.1524" layer="91"/>
-<junction x="66.04" y="88.9"/>
+<wire x1="81.28" y1="88.9" x2="71.12" y2="88.9" width="0.1524" layer="91"/>
+<junction x="71.12" y="88.9"/>
 </segment>
 </net>
 <net name="BTN2" class="0">
 <segment>
-<label x="116.84" y="88.9" size="1.778" layer="95" align="bottom-right"/>
+<label x="121.92" y="88.9" size="1.778" layer="95" align="bottom-right"/>
 <pinref part="R4" gate="G$1" pin="2"/>
-<wire x1="106.68" y1="88.9" x2="116.84" y2="88.9" width="0.1524" layer="91"/>
-<wire x1="106.68" y1="86.36" x2="106.68" y2="88.9" width="0.1524" layer="91"/>
+<wire x1="111.76" y1="88.9" x2="121.92" y2="88.9" width="0.1524" layer="91"/>
+<wire x1="111.76" y1="86.36" x2="111.76" y2="88.9" width="0.1524" layer="91"/>
 <pinref part="S2" gate="G$1" pin="2"/>
-<wire x1="96.52" y1="88.9" x2="106.68" y2="88.9" width="0.1524" layer="91"/>
-<junction x="106.68" y="88.9"/>
+<wire x1="101.6" y1="88.9" x2="111.76" y2="88.9" width="0.1524" layer="91"/>
+<junction x="111.76" y="88.9"/>
 </segment>
 </net>
 <net name="N$4" class="0">
